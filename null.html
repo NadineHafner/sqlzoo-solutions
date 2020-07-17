@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Using null</title>
+  </head>
+  <body>
+    <a href="index.html">back</a>
+    <h1>Using null</h1>
+    <ol>
+      <li>List the teachers who have NULL for their department.<br><br>Select name from teacher where dept is null <br><br> </li>
+      <li>Note the INNER JOIN misses the teachers with no department and the departments with no teacher. <br><br>SELECT teacher.name, dept.name
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)</li>
+           <li>Use a different JOIN so that all teachers are listed. <br><br>Select teacher.name, dept.name from teacher left join dept on teacher.dept=dept.id <br><br></li>
+           <li>
+Use a different JOIN so that all departments are listed. <br><br>Select teacher.name, dept.name from teacher right join dept on teacher.dept=dept.id <br><br></li>
+<li>Use COALESCE to print the mobile number. Use the number '07986 444 2266' if there is no number given. Show teacher name and mobile number or '07986 444 2266' <br><br>select name, Coalesce(mobile, '07986 444 2266') mobile from teacher <br><br></li>
+<li>Use the COALESCE function and a LEFT JOIN to print the teacher name and department name. Use the string 'None' where there is no department. <br><br>select teacher.name, Coalesce(dept.name, 'None') from teacher left join dept on teacher.dept=dept.id <br><br></li>
+<li>Use COUNT to show the number of teachers and the number of mobile phones <br><br>Select count(name), count(mobile) from teacher <br><br></li>
+<li>Use COUNT and GROUP BY dept.name to show each department and the number of staff. Use a RIGHT JOIN to ensure that the Engineering department is listed <br><br>Select dept.name, count(teacher.name) from teacher right join dept on dept.id=teacher.dept group by(dept.name)<br><br> </li>
+<li>Use CASE to show the name of each teacher followed by 'Sci' if the teacher is in dept 1 or 2 and 'Art' otherwise. <br><br>Select teacher.name, Case when dept='1' or dept='2' then 'Sci' else 'Art' end from teacher <br><br></li>
+<li>
+Use CASE to show the name of each teacher followed by 'Sci' if the teacher is in dept 1 or 2, show 'Art' if the teacher's dept is 3 and 'None' otherwise. <br><br>Select teacher.name, Case when dept='1' or dept='2' then 'Sci' when dept='3' then 'Art' else 'None' end from teacher <br><br></li>
+    </ol>
+  </body>
+</html>
