@@ -41,7 +41,27 @@ ORDER BY whn <br><br> </li>
    AND tw.name=lw.name
 WHERE tw.name = 'Italy'
 and weekday(tw.whn)=0
-ORDER BY tw.whn <br><br> </li>
+ORDER BY tw.whn <br><br>The query shown shows the number of confirmed cases together with the world ranking for cases.
+
+United States has the highest number, Spain is number 2...
+
+Notice that while Spain has the second highest confirmed cases, Italy has the second highest number of deaths due to the virus.
+
+Include the ranking for the number of deaths in the table. <br> <br>SELECT
+   name,
+   confirmed,
+   RANK() OVER (ORDER BY confirmed DESC) rc,
+   deaths, Rank() over (order by deaths desc) rd
+  FROM covid
+WHERE whn = '2020-04-20'
+ORDER BY confirmed DESC <br><br> </li>
+<li>Show the infect rate ranking for each country. Only include countries with a population of at least 10 million. <br><br>SELECT
+   world.name,
+   ROUND(100000*confirmed/population,0) as infection, rank() over (order by (confirmed/population)) as rank
+  FROM covid JOIN world ON covid.name=world.name
+WHERE whn = '2020-04-20' AND population >= 10000000
+ORDER BY population DESC <br><br> </li>
+<li>For each country that has had at last 1000 new cases in a single day, show the date of the peak number of new cases.<br><br> </li>
 </ol>
   </body>
 </html>
