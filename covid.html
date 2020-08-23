@@ -61,7 +61,7 @@ ORDER BY confirmed DESC <br><br> </li>
   FROM covid JOIN world ON covid.name=world.name
 WHERE whn = '2020-04-20' AND population >= 10000000
 ORDER BY population DESC <br><br> </li>
-<li>For each country that has had at last 1000 new cases in a single day, show the date of the peak number of new cases.<br><br> </li>
+<li>For each country that has had at last 1000 new cases in a single day, show the date of the peak number of new cases.<br><br> select name, date_format(whn, '%Y-%m-%d'), newC from (select name, whn, rank() over (Partition by name order by newC desc) orderedC, newC from (Select name, whn, confirmed - lag(confirmed,1) over (partition by name order by whn) newC from covid) x) y where orderedC=1 and newC > 1000 order by whn <br><br> </li>
 </ol>
   </body>
 </html>
